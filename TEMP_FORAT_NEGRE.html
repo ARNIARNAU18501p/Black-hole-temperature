@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Quina és la temperatura del forat negre?</title>
+    </head>
+    <body>
+        <h1>Quina és la temperatura del forat negre?</h1>
+        <p>Masa en kg: </p>
+        <input style="width:75%;" id="inp" placeholder="massa">
+        <button id="btn">Calcular</button>
+        <br>
+        <br>
+        <h2>La temperatura del forat negre, <u>aproximada a les unitats</u>, és de:</h2>
+        <div id="res"></div>
+        <script>
+            const btn = document.getElementById("btn");
+            btn.addEventListener("click", ()=>{
+                const res = document.getElementById("res");
+                const inp = document.getElementById("inp");
+
+                if(inp.value==""){
+                    res.innerHTML = '<h2 style="color:red;">No hi ha cap valor!</h2>';
+                }else if(inp.value.includes("-")){
+                    res.innerHTML = '<h2 style="color:red;">La massa no pot ser negativa!</h2>';
+                } else if(parseInt(inp.value).toString()=="NaN"){
+                    res.innerHTML = '<h2 style="color:red;">El valor ha de ser un número!</h2>';
+                } else {
+                    // top
+                    const h = 0.0000000000000000000000000000000010545718;
+                    const lE3 = 27000000000000000000000000;
+                    // bottom
+                    const vuit = 8;
+                    const pi = 3.14159265359;
+                    const G = 0.000000000066743;
+                    const massa = parseFloat(inp.value);
+                    const bltz = 0.00000000000000000000001380649;
+
+                    // calc
+                    const fin = (h * lE3) / (vuit * pi * G * massa * bltz);
+                    if(fin.toString()=="Infinity"){
+                        res.innerHTML = '<h2 style="color:red;">El valor és infinit!</h2>';
+                    } else {
+                        res.innerHTML = `<h2>${fin} <span style="color:blue;">kelvin</span></h2>`;
+                    }
+                }
+            });
+        </script>
+        <script>
+            window.addEventListener("keypress", (event)=>{
+                if(event.keyCode===13){
+                    btn.click();
+                }
+            });
+        </script>
+    </body>
+</html>
